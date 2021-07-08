@@ -1,8 +1,10 @@
 import 'package:cue/utils/PortUtils.dart';
 
 void main() {
-
-  var availablePorts = PortUtils.getAvailablePort();
+  var availablePorts = PortUtils.getUsbAvailablePort();
+  if (availablePorts == null || availablePorts.length == 0) {
+    return null;
+  }
   for (final serialPorts in availablePorts) {
     print("Matthew: serialPorts.manufacturer = ${serialPorts.manufacturer}");
     print("Matthew: serialPorts.transport = ${serialPorts.transport}");
