@@ -15,8 +15,8 @@ class PortUtils {
   }
 
   static List<SerialPort>? getUsbAvailablePort() {
+    var availablePortList = getAllAvailablePort();
     if (Platform.isMacOS) {
-      var availablePortList = getAllAvailablePort();
       var usbPortList = List<SerialPort>.generate(0, (index) => SerialPort("Matthew"));
       availablePortList.forEach((port) {
         if (port.name!.contains("USB")) {
@@ -25,5 +25,9 @@ class PortUtils {
       });
       return usbPortList;
     }
+    if (Platform.isWindows){
+        return availablePortList;
+    }
   }
+
 }
