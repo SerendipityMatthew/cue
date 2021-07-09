@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:cue/utils/PortUtils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_libserialport/flutter_libserialport.dart';
+import 'dart:developer' as developer;
 
 void main() {
   var availablePorts = PortUtils.getUsbAvailablePort();
@@ -26,22 +27,26 @@ void main() {
   getSerialPortData(serialPort1, portConfig);
 }
 
-void getSerialPortData(SerialPort serialPort, SerialPortConfig serialPortConfig) {
+void getSerialPortData(
+    SerialPort serialPort, SerialPortConfig serialPortConfig) {
   serialPort.config = serialPortConfig;
-  serialPort.openReadWrite();
+  var isSuccess = serialPort.open(mode: SerialPortMode.readWrite);
+
   if (!serialPort.isOpen) {
-    print("have not open the serial port");
+    developer.log("we have not open the serial port of ${serialPort.name}",
+        name: "getSerialPortData");
     return null;
   }
-  print("Serial Port of ${serialPort.name} "
-      "the open status = ${serialPort.isOpen}");
+  developer.log(
+      "Serial Port of ${serialPort.name} the open status = ${serialPort.isOpen} ",
+      name: "getSerialPortData");
   if (serialPort.isOpen) {
     var reader = SerialPortReader(serialPort);
     reader.stream.listen((dataBytes) {
       var dataStr = utf8.decode(dataBytes, allowMalformed: true);
       DateTime currentDate = DateTime.now();
       var displayLog = "[$currentDate]$dataStr";
-      print(displayLog.trim());
+      developer.log("${displayLog.trim()}", name: "getSerialPortData");
     });
   }
 }
