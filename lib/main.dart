@@ -1,11 +1,16 @@
 import 'dart:convert';
 
+import 'package:cue/home_page.dart';
 import 'package:cue/utils/PortUtils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_libserialport/flutter_libserialport.dart';
 import 'dart:developer' as developer;
 
 void main() {
+  runApp(MyApp());
+}
+
+void getAll() {
   var availablePorts = PortUtils.getUsbAvailablePort();
   if (availablePorts == null || availablePorts.length == 0) {
     return null;
@@ -27,8 +32,36 @@ void main() {
   getSerialPortData(serialPort1, portConfig);
 }
 
-void getSerialPortData(
-    SerialPort serialPort, SerialPortConfig serialPortConfig) {
+class MyApp extends StatefulWidget {
+  const MyApp({Key? key}) :super(key: key);
+
+  @override
+  _AppState createState() => new _AppState();
+
+}
+
+class _AppState extends State<MyApp> {
+  Color _primaryColor = Colors.blue;
+
+  @override
+  Widget build(BuildContext context) {
+    // TODO: implement build
+    return MaterialApp(
+      title: "Cue Application",
+      theme: ThemeData(
+        primarySwatch: Colors.blue,
+        primaryColor: _primaryColor,
+        accentColor: _primaryColor,
+      ),
+      darkTheme: ThemeData.light(),
+      home: HomePage(),
+    );
+  }
+
+}
+
+void getSerialPortData(SerialPort serialPort,
+    SerialPortConfig serialPortConfig) {
   serialPort.config = serialPortConfig;
   var isSuccess = serialPort.open(mode: SerialPortMode.readWrite);
 
@@ -38,7 +71,8 @@ void getSerialPortData(
     return null;
   }
   developer.log(
-      "Serial Port of ${serialPort.name} the open status = ${serialPort.isOpen} ",
+      "Serial Port of ${serialPort.name} the open status = ${serialPort
+          .isOpen} ",
       name: "getSerialPortData");
   if (serialPort.isOpen) {
     var reader = SerialPortReader(serialPort);
