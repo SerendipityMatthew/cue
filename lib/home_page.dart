@@ -9,9 +9,16 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       home: Scaffold(
-        body: Column(
+        body: Row(
           mainAxisAlignment: MainAxisAlignment.start,
-          children: [MyStatefulWidget()],
+          children: [
+            PortListDropDownButton(),
+            ElevatedButton(onPressed: null, child: Text("Open Port")),
+            ElevatedButton(
+              onPressed: null,
+              child: Text("Listen Port"),
+            )
+          ],
         ),
       ),
     );
@@ -19,15 +26,15 @@ class HomePage extends StatelessWidget {
 }
 
 /// This is the stateful widget that the main application instantiates.
-class MyStatefulWidget extends StatefulWidget {
-  const MyStatefulWidget({Key? key}) : super(key: key);
+class PortListDropDownButton extends StatefulWidget {
+  const PortListDropDownButton({Key? key}) : super(key: key);
 
   @override
-  State<MyStatefulWidget> createState() => _MyStatefulWidgetState();
+  State<PortListDropDownButton> createState() => _PortListDropDownButtonState();
 }
 
 /// This is the private State class that goes with MyStatefulWidget.
-class _MyStatefulWidgetState extends State<MyStatefulWidget> {
+class _PortListDropDownButtonState extends State<PortListDropDownButton> {
   String dropdownValue = 'com6';
 
   @override
