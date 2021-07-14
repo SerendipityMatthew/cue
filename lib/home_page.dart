@@ -3,6 +3,7 @@ import 'package:cue/DataBitsDropDownButton.dart';
 import 'package:cue/FlowTypeDropDownButton.dart';
 import 'package:cue/ParityDropDownButton.dart';
 import 'package:cue/StopBitDropDownButton.dart';
+import 'package:cue/colors/AppColors.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -19,41 +20,117 @@ class HomePage extends StatelessWidget {
           children: [
             Row(
               children: [
-                ElevatedButton(onPressed: null, child: Text("Open Port")),
-                PortListDropDownButton(),
                 ElevatedButton(
                   onPressed: null,
-                  child: Text("Listen Port"),
+                  style: ButtonStyle(
+                      backgroundColor:
+                          MaterialStateProperty.all(AppColors.primaryBlue)),
+                  child: Text(
+                    "Listen Port",
+                    style: TextStyle(color: AppColors.white),
+                  ),
                 ),
               ],
             ),
             Row(
               children: [
-                ElevatedButton(onPressed: null, child: Text('Baudrate')),
+                ElevatedButton(
+                    onPressed: null,
+                    style: ButtonStyle(
+                        backgroundColor:
+                            MaterialStateProperty.all(AppColors.primaryBlue)),
+                    child: Text(
+                      "Open Port",
+                      style: TextStyle(color: AppColors.white),
+                    )),
+                SizedBox(
+                  width: 10,
+                ),
+                PortListDropDownButton(),
+              ],
+            ),
+            Row(
+              children: [
+                ElevatedButton(
+                    onPressed: null,
+                    style: ButtonStyle(
+                        backgroundColor:
+                            MaterialStateProperty.all(AppColors.primaryBlue)),
+                    child: Text(
+                      'Baudrate',
+                      style: TextStyle(color: AppColors.white),
+                    )),
+                SizedBox(
+                  width: 10,
+                ),
                 BaudrateDropDownButton()
               ],
             ),
             Row(
               children: [
-                ElevatedButton(onPressed: null, child: Text('Parity')),
+                ElevatedButton(
+                    onPressed: null,
+                    style: ButtonStyle(
+                        backgroundColor:
+                            MaterialStateProperty.all(AppColors.primaryBlue)),
+                    child: Text(
+                      'Parity',
+                      style: TextStyle(color: AppColors.white),
+                    )),
+                SizedBox(
+                  width: 10,
+                ),
                 ParityDropDownButton()
               ],
             ),
             Row(
               children: [
-                ElevatedButton(onPressed: null, child: Text('Stop Bits')),
+                ElevatedButton(
+                    onPressed: null,
+                    style: ButtonStyle(
+                        backgroundColor:
+                            MaterialStateProperty.all(AppColors.primaryBlue)),
+                    child: Text(
+                      'Stop Bits',
+                      style: TextStyle(color: AppColors.white),
+                    )),
+                SizedBox(
+                  width: 10,
+                ),
                 StopBitDropDownButton()
               ],
             ),
             Row(
               children: [
-                ElevatedButton(onPressed: null, child: Text('Flow Type')),
+                ElevatedButton(
+                    onPressed: null,
+                    style: ButtonStyle(
+                        backgroundColor:
+                            MaterialStateProperty.all(AppColors.primaryBlue)),
+                    child: Text(
+                      'Flow Type',
+                      style: TextStyle(color: AppColors.white),
+                    )),
+                SizedBox(
+                  width: 10,
+                ),
                 FlowTypeDropDownButton()
               ],
             ),
             Row(
               children: [
-                ElevatedButton(onPressed: null, child: Text('Data Bits')),
+                ElevatedButton(
+                    onPressed: null,
+                    style: ButtonStyle(
+                        backgroundColor:
+                            MaterialStateProperty.all(AppColors.primaryBlue)),
+                    child: Text(
+                      'Data Bits',
+                      style: TextStyle(color: AppColors.white),
+                    )),
+                SizedBox(
+                  width: 10,
+                ),
                 DataBitsDropDownButton()
               ],
             ),
