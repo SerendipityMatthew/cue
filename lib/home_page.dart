@@ -1,3 +1,8 @@
+import 'package:cue/BaudrateDropDownButton.dart';
+import 'package:cue/DataBitsDropDownButton.dart';
+import 'package:cue/FlowTypeDropDownButton.dart';
+import 'package:cue/ParityDropDownButton.dart';
+import 'package:cue/StopBitDropDownButton.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -9,15 +14,49 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       home: Scaffold(
-        body: Row(
+        body: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
-            PortListDropDownButton(),
-            ElevatedButton(onPressed: null, child: Text("Open Port")),
-            ElevatedButton(
-              onPressed: null,
-              child: Text("Listen Port"),
-            )
+            Row(
+              children: [
+                ElevatedButton(onPressed: null, child: Text("Open Port")),
+                PortListDropDownButton(),
+                ElevatedButton(
+                  onPressed: null,
+                  child: Text("Listen Port"),
+                ),
+              ],
+            ),
+            Row(
+              children: [
+                ElevatedButton(onPressed: null, child: Text('Baudrate')),
+                BaudrateDropDownButton()
+              ],
+            ),
+            Row(
+              children: [
+                ElevatedButton(onPressed: null, child: Text('Parity')),
+                ParityDropDownButton()
+              ],
+            ),
+            Row(
+              children: [
+                ElevatedButton(onPressed: null, child: Text('Stop Bits')),
+                StopBitDropDownButton()
+              ],
+            ),
+            Row(
+              children: [
+                ElevatedButton(onPressed: null, child: Text('Flow Type')),
+                FlowTypeDropDownButton()
+              ],
+            ),
+            Row(
+              children: [
+                ElevatedButton(onPressed: null, child: Text('Data Bits')),
+                DataBitsDropDownButton()
+              ],
+            ),
           ],
         ),
       ),
