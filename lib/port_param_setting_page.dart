@@ -22,123 +22,151 @@ class _PortParamSettingPage extends State<PortParamSettingPage> {
   @override
   Widget build(BuildContext context) {
     return Column(
-      mainAxisAlignment: MainAxisAlignment.start,
+      mainAxisAlignment: MainAxisAlignment.end,
       children: [
-        Row(
-          children: [
-            ElevatedButton(
-              onPressed: null,
-              style: ButtonStyle(
-                  backgroundColor:
-                      MaterialStateProperty.all(AppColors.primaryBlue)),
-              child: Text(
-                "Listen Port",
-                style: TextStyle(color: AppColors.white),
+        Container(
+          width: 220,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              ElevatedButton(
+                onPressed: null,
+                style: ButtonStyle(
+                    backgroundColor:
+                        MaterialStateProperty.all(AppColors.primaryBlue)),
+                child: Text(
+                  "Listen Port",
+                  style: TextStyle(color: AppColors.white),
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
-        Row(
-          children: [
-            ElevatedButton(
-                onPressed: null,
-                style: ButtonStyle(
-                    backgroundColor:
-                        MaterialStateProperty.all(AppColors.primaryBlue)),
-                child: Text(
-                  "Open Port",
-                  style: TextStyle(color: AppColors.white),
-                )),
-            SizedBox(
-              width: 10,
-            ),
-            PortListDropDownButton(),
-          ],
+        Container(
+          width: 220,
+          child: Row(
+            children: [
+              ElevatedButton(
+                  onPressed: null,
+                  style: ButtonStyle(
+                      backgroundColor:
+                          MaterialStateProperty.all(AppColors.primaryBlue)),
+                  child: Text(
+                    "Open Port",
+                    style: TextStyle(color: AppColors.white),
+                  )),
+              SizedBox(
+                width: 45,
+              ),
+              PortListDropDownButton(),
+            ],
+          ),
         ),
-        Row(
-          children: [
-            ElevatedButton(
-                onPressed: null,
-                style: ButtonStyle(
-                    backgroundColor:
-                        MaterialStateProperty.all(AppColors.primaryBlue)),
-                child: Text(
-                  'Baudrate',
-                  style: TextStyle(color: AppColors.white),
-                )),
-            SizedBox(
-              width: 10,
-            ),
-            BaudrateDropDownButton()
-          ],
+        Container(
+          width: 220,
+          child: Row(
+            children: [
+              ElevatedButton(
+                  onPressed: null,
+                  style: ButtonStyle(
+                      backgroundColor:
+                          MaterialStateProperty.all(AppColors.primaryBlue)),
+                  child: Text(
+                    'Baudrate',
+                    style: TextStyle(color: AppColors.white),
+                  )),
+              SizedBox(
+                width: 30,
+              ),
+              BaudrateDropDownButton()
+            ],
+          ),
         ),
-        Row(
-          children: [
-            ElevatedButton(
-                onPressed: null,
-                style: ButtonStyle(
-                    backgroundColor:
-                        MaterialStateProperty.all(AppColors.primaryBlue)),
-                child: Text(
-                  'Parity',
-                  style: TextStyle(color: AppColors.white),
-                )),
-            SizedBox(
-              width: 10,
-            ),
-            ParityDropDownButton()
-          ],
+        Container(
+          width: 220,
+          child: Row(
+            children: [
+              ElevatedButton(
+                  onPressed: null,
+                  style: ButtonStyle(
+                      backgroundColor:
+                          MaterialStateProperty.all(AppColors.primaryBlue)),
+                  child: Text(
+                    'Parity',
+                    style: TextStyle(color: AppColors.white),
+                  )),
+              SizedBox(
+                width: 70,
+              ),
+              ParityDropDownButton()
+            ],
+          ),
         ),
-        Row(
-          children: [
-            ElevatedButton(
-                onPressed: null,
-                style: ButtonStyle(
-                    backgroundColor:
-                        MaterialStateProperty.all(AppColors.primaryBlue)),
-                child: Text(
-                  'Stop Bits',
-                  style: TextStyle(color: AppColors.white),
-                )),
-            SizedBox(
-              width: 10,
-            ),
-            StopBitDropDownButton()
-          ],
+        Container(
+          width: 220,
+          child: Row(
+            children: [
+              ElevatedButton(
+                  onPressed: null,
+                  style: ButtonStyle(
+                      backgroundColor:
+                          MaterialStateProperty.all(AppColors.primaryBlue)),
+                  child: Text(
+                    'Stop Bits',
+                    style: TextStyle(color: AppColors.white),
+                  )),
+              SizedBox(
+                width: 80,
+              ),
+              StopBitDropDownButton()
+            ],
+          ),
         ),
-        Row(
-          children: [
-            ElevatedButton(
-                onPressed: null,
-                style: ButtonStyle(
-                    backgroundColor:
-                        MaterialStateProperty.all(AppColors.primaryBlue)),
-                child: Text(
-                  'Flow Type',
-                  style: TextStyle(color: AppColors.white),
-                )),
-            SizedBox(
-              width: 10,
-            ),
-            FlowTypeDropDownButton()
-          ],
+        Container(
+          width: 220,
+          child: Row(
+            children: [
+              ElevatedButton(
+                  onPressed: null,
+                  style: ButtonStyle(
+                      backgroundColor:
+                          MaterialStateProperty.all(AppColors.primaryBlue)),
+                  child: Text(
+                    'Flow Type',
+                    style: TextStyle(color: AppColors.white),
+                  )),
+              SizedBox(
+                width: 10,
+              ),
+              FlowTypeDropDownButton()
+            ],
+          ),
         ),
-        Row(
-          children: [
-            ElevatedButton(
-                onPressed: null,
-                style: ButtonStyle(
-                    backgroundColor:
-                        MaterialStateProperty.all(AppColors.primaryBlue)),
-                child: Text(
-                  'Data Bits',
-                  style: TextStyle(color: AppColors.white),
-                )),
-            SizedBox(
-              width: 10,
-            ),
-            DataBitsDropDownButton()
-          ],
+        Container(
+          width: 220,
+          child: Row(
+            children: [
+              Container(
+                width: 110,
+                child: ElevatedButton(
+                    onPressed: null,
+                    style: ButtonStyle(
+                        backgroundColor:
+                            MaterialStateProperty.all(AppColors.primaryBlue)),
+                    child: Text(
+                      'Data Bits',
+                      style: TextStyle(color: AppColors.white),
+                    )),
+              ),
+              SizedBox(
+                width: 50,
+              ),
+              Container(
+                width: 40,
+                child: DataBitsDropDownButton(),
+              )
+            ],
+          ),
         ),
       ],
     );

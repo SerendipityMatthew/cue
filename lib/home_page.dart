@@ -1,3 +1,4 @@
+import 'package:cue/most_used_command.dart';
 import 'package:cue/port_log_output_page.dart';
 import 'package:cue/port_param_setting_page.dart';
 import 'package:flutter/cupertino.dart';
@@ -13,18 +14,23 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       home: Scaffold(
-        appBar: AppBar(
-          title: Text('Cue'),
-        ),
-        body: Column(
+        body: Row(
           children: [
-            Row(
+            Column(
               children: [
-                PortParamSettingPage(),
-                PortLogOutputPage(),
+                Row(
+                  children: [
+                    PortParamSettingPage(),
+                    PortLogOutputPage(),
+                  ],
+                ),
+                SizedBox(
+                  height: 20,
+                ),
+                InputCommandPage(),
               ],
             ),
-            InputCommandPage(),
+            MostUsedCommandPage()
           ],
         ),
       ),
