@@ -29,6 +29,7 @@ class HomePage extends StatelessWidget {
                   ],
                 ),
                 SizedBox(
+                  width: 30,
                   height: 20,
                 ),
                 InputCommandPage(),

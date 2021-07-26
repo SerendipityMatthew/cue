@@ -43,6 +43,20 @@ class _PortParamSettingPage extends State<PortParamSettingPage> {
                       style: TextStyle(color: AppColors.white),
                     ),
                   ),
+                  SizedBox(
+                    height: 40,
+                    width: 10,
+                  ),
+                  ElevatedButton(
+                    onPressed: null,
+                    style: ButtonStyle(
+                        backgroundColor:
+                            MaterialStateProperty.all(AppColors.primaryBlue)),
+                    child: Text(
+                      "Hex 显示",
+                      style: TextStyle(color: AppColors.white),
+                    ),
+                  )
                 ],
               ),
             ),
@@ -66,6 +80,7 @@ class _PortParamSettingPage extends State<PortParamSettingPage> {
                         style: TextStyle(color: AppColors.white),
                       )),
                   SizedBox(
+                    height: 40,
                     width: 45,
                   ),
                   PortListDropDownButton(),
@@ -93,6 +108,7 @@ class _PortParamSettingPage extends State<PortParamSettingPage> {
                       )),
                   SizedBox(
                     width: 30,
+                    height: 40,
                   ),
                   BaudrateDropDownButton()
                 ],
@@ -119,6 +135,7 @@ class _PortParamSettingPage extends State<PortParamSettingPage> {
                       )),
                   SizedBox(
                     width: 70,
+                    height: 40,
                   ),
                   ParityDropDownButton()
                 ],
@@ -149,6 +166,7 @@ class _PortParamSettingPage extends State<PortParamSettingPage> {
                         style: TextStyle(color: AppColors.white),
                       )),
                   SizedBox(
+                    height: 40,
                     width: 80,
                   ),
                   StopBitDropDownButton()
@@ -175,6 +193,7 @@ class _PortParamSettingPage extends State<PortParamSettingPage> {
                         style: TextStyle(color: AppColors.white),
                       )),
                   SizedBox(
+                    height: 40,
                     width: 10,
                   ),
                   FlowTypeDropDownButton()
@@ -204,6 +223,7 @@ class _PortParamSettingPage extends State<PortParamSettingPage> {
                         )),
                   ),
                   SizedBox(
+                    height: 40,
                     width: 50,
                   ),
                   Container(
