@@ -18,9 +18,13 @@ class HomePage extends StatelessWidget {
           children: [
             Column(
               children: [
-                Row(
+                Column(
                   children: [
                     PortParamSettingPage(),
+                    SizedBox(
+                      width: 600,
+                      height: 20,
+                    ),
                     PortLogOutputPage(),
                   ],
                 ),

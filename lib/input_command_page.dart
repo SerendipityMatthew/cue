@@ -13,7 +13,7 @@ class _InputCommandPage extends State<InputCommandPage> {
   Widget build(BuildContext context) {
     return Container(
       color: Colors.grey[300],
-      width: 800,
+      width: 950,
       height: 200,
       child: TextField(
         minLines: 10,
