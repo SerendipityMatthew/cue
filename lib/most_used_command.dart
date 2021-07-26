@@ -16,7 +16,7 @@ class _MostUsedCommandPage extends State<MostUsedCommandPage> {
       width: 100,
       height: 600,
       child: Row(
-        children: [TextField(), Text('备注名称')],
+        children: [Text('备注名称')],
       ),
     );
   }
