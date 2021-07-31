@@ -24,7 +24,7 @@ class _BaudrateDropDownButtonState extends State<BaudrateDropDownButton> {
       '200 000'
     ];
 
-    return DropdownButton<String>(
+    var dropDownButton = DropdownButton<String>(
       value: dropdownValue,
       icon: const Icon(Icons.arrow_downward),
       iconSize: 24,
@@ -46,5 +46,6 @@ class _BaudrateDropDownButtonState extends State<BaudrateDropDownButton> {
         );
       }).toList(),
     );
+    return dropDownButton;
   }
 }

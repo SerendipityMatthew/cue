@@ -1,9 +1,19 @@
+import 'package:cue/model/cue_serial_port_model.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 /// This is the stateful widget that the main application instantiates.
 class PortListDropDownButton extends StatefulWidget {
-  const PortListDropDownButton({Key? key}) : super(key: key);
+  final List<String> portList;
+  final ValueChanged<String?>? onValueChanged;
+  final CueSerialPortModel model;
+
+  const PortListDropDownButton(
+      {Key? key,
+      required this.portList,
+      this.onValueChanged,
+      required this.model})
+      : super(key: key);
 
   @override
   State<PortListDropDownButton> createState() => _PortListDropDownButtonState();
@@ -11,14 +21,10 @@ class PortListDropDownButton extends StatefulWidget {
 
 /// This is the private State class that goes with MyStatefulWidget.
 class _PortListDropDownButtonState extends State<PortListDropDownButton> {
-  String dropdownValue = 'com6';
-
   @override
   Widget build(BuildContext context) {
-    List<String> portList = ['com6', 'com7', 'com8', 'com9'];
-
     return DropdownButton<String>(
-      value: dropdownValue,
+      value: this.widget.model.value.name,
       icon: const Icon(Icons.arrow_downward),
       iconSize: 24,
       elevation: 16,
@@ -27,12 +33,8 @@ class _PortListDropDownButtonState extends State<PortListDropDownButton> {
         height: 2,
         color: Colors.deepPurpleAccent,
       ),
-      onChanged: (String? newValue) {
-        setState(() {
-          dropdownValue = newValue!;
-        });
-      },
-      items: portList.map<DropdownMenuItem<String>>((String value) {
+      onChanged: this.widget.onValueChanged,
+      items: this.widget.portList.map<DropdownMenuItem<String>>((String value) {
         return DropdownMenuItem<String>(
           value: value,
           child: Text(value),

@@ -1,3 +1,7 @@
+import 'dart:developer' as developer;
+
+import 'package:cue/entity/cue_serial_port.dart';
+import 'package:cue/model/cue_serial_port_model.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -71,7 +75,7 @@ class _PortParamSettingPage extends State<PortParamSettingPage> {
               child: Row(
                 children: [
                   ElevatedButton(
-                      onPressed: null,
+                      onPressed: () {},
                       style: ButtonStyle(
                           backgroundColor:
                               MaterialStateProperty.all(AppColors.primaryBlue)),
@@ -83,7 +87,13 @@ class _PortParamSettingPage extends State<PortParamSettingPage> {
                     height: 40,
                     width: 45,
                   ),
-                  PortListDropDownButton(),
+                  PortListDropDownButton(
+                    portList: ["com6", "com7", "com8", "com9"],
+                    model: CueSerialPortModel(CueSerialPort()..name = "com6"),
+                    onValueChanged: (portName) {
+                      developer.log("the new selected port name is  $portName");
+                    },
+                  ),
                 ],
               ),
             ),
