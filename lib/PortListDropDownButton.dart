@@ -7,11 +7,13 @@ class PortListDropDownButton extends StatefulWidget {
   final List<String> portList;
   final ValueChanged<String?>? onValueChanged;
   final CueSerialPortModel model;
+  final VoidCallback? onDropDownTap;
 
   const PortListDropDownButton(
       {Key? key,
       required this.portList,
       this.onValueChanged,
+      this.onDropDownTap,
       required this.model})
       : super(key: key);
 
@@ -33,7 +35,13 @@ class _PortListDropDownButtonState extends State<PortListDropDownButton> {
         height: 2,
         color: Colors.deepPurpleAccent,
       ),
-      onChanged: this.widget.onValueChanged,
+      onTap: this.widget.onDropDownTap,
+      onChanged: (newValue) {
+        setState(() {
+          this.widget.model.value.name = newValue!;
+          this.widget.onValueChanged!(newValue);
+        });
+      },
       items: this.widget.portList.map<DropdownMenuItem<String>>((String value) {
         return DropdownMenuItem<String>(
           value: value,

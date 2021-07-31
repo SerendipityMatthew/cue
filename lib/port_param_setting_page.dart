@@ -2,8 +2,10 @@ import 'dart:developer' as developer;
 
 import 'package:cue/entity/cue_serial_port.dart';
 import 'package:cue/model/cue_serial_port_model.dart';
+import 'package:cue/utils/PortUtils.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_libserialport/flutter_libserialport.dart';
 
 import 'BaudrateDropDownButton.dart';
 import 'DataBitsDropDownButton.dart';
@@ -23,8 +25,27 @@ class PortParamSettingPage extends StatefulWidget {
 
 /// This is the private State class that goes with MyStatefulWidget.
 class _PortParamSettingPage extends State<PortParamSettingPage> {
+  List<String> _portList = [
+    "TCP/UDP",
+  ];
+
+  List<String> getPortName() {
+    List<SerialPort> serialPortList = PortUtils.getAllAvailablePort();
+    for (final serialPort in serialPortList) {
+      var portName = serialPort.name;
+      if (portName != null) {
+        if (!_portList.contains(portName)) {
+          _portList.add(portName);
+        }
+      }
+    }
+    return _portList;
+  }
+
   @override
   Widget build(BuildContext context) {
+    var cuePortModel = CueSerialPortModel(CueSerialPort()..name = _portList[0]);
+    _portList = getPortName();
     return Column(
       mainAxisAlignment: MainAxisAlignment.end,
       children: [
@@ -88,10 +109,14 @@ class _PortParamSettingPage extends State<PortParamSettingPage> {
                     width: 45,
                   ),
                   PortListDropDownButton(
-                    portList: ["com6", "com7", "com8", "com9"],
-                    model: CueSerialPortModel(CueSerialPort()..name = "com6"),
+                    portList: _portList,
+                    model: cuePortModel,
+                    onDropDownTap: () {
+                      _portList = getPortName();
+                    },
                     onValueChanged: (portName) {
-                      developer.log("the new selected port name is  $portName");
+                      developer.log(
+                          "cuePortModel.value.name = ${cuePortModel.value.name}");
                     },
                   ),
                 ],
