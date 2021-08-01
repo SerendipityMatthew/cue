@@ -92,7 +92,7 @@ class _PortParamSettingPage extends State<PortParamSettingPage> {
             Container(
               color: Colors.black12,
               height: 40,
-              width: 210,
+              width: 352,
               child: Row(
                 children: [
                   ElevatedButton(
@@ -106,7 +106,7 @@ class _PortParamSettingPage extends State<PortParamSettingPage> {
                       )),
                   SizedBox(
                     height: 40,
-                    width: 45,
+                    width: 10,
                   ),
                   PortListDropDownButton(
                     portList: _portList,

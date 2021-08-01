@@ -1,0 +1,12 @@
+{
+  "tcpUdp": "TCP/UDP",
+  "showLogByHex": "Hex 显示",
+  "listenPort": "Listen Port",
+  "openPort": "Open Port",
+  "flowType": "Flow Type",
+  "stopBits": "Stop Bits",
+  "dataBits": "Data Bits",
+  "baudRate": "BaudRate",
+  "parity": "Parity",
+  "savePortLog": "保存 log"
+}
