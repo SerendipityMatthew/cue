@@ -48,11 +48,8 @@ class _PortParamSettingPage extends State<PortParamSettingPage> {
   @override
   Widget build(BuildContext context) {
     var portOpenStatus = "Open Port";
-    var cuePort = CueSerialPort();
+    var cuePort = CueSerialPort.getDefaultConfigPort();
     cuePort.name = _portList[0];
-    cuePort.baudRate = PortParamConstant.COMMON_BAUDRATE_LIST.first;
-    cuePort.parity = PortParamConstant.PORT_PARITY_LIST.first;
-    cuePort.dataBits = PortParamConstant.PORT_DATA_BITS_LIST.last;
     var cuePortModel = CueSerialPortModel(cuePort);
     _portList = getPortName();
     return Column(
@@ -117,8 +114,9 @@ class _PortParamSettingPage extends State<PortParamSettingPage> {
                             SerialPortConfig portConfig =
                                 new SerialPortConfig();
                             portConfig.baudRate = cuePortModel.value.baudRate;
-                            portConfig.bits = 8;
+                            portConfig.bits = cuePortModel.value.dataBits;
                             portConfig.stopBits = 1;
+                            portConfig.cts;
                             getSerialPortData(port, portConfig);
 
                             break;
@@ -278,7 +276,16 @@ class _PortParamSettingPage extends State<PortParamSettingPage> {
                     height: 40,
                     width: 10,
                   ),
-                  FlowTypeDropDownButton()
+                  FlowTypeDropDownButton(
+                    flowTypeList:PortParamConstant.PORT_FLOW_TYPE_LIST,
+                    model: cuePortModel,
+                    onDropDownTap: () {
+                    },
+                    onValueChanged: (portName) {
+                      developer.log(
+                          "cuePortModel.value.flowType = ${cuePortModel.value.flowType}");
+                    },
+                  )
                 ],
               ),
             ),

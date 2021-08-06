@@ -20,4 +20,11 @@ class PortParamConstant {
     7,
     8,
   ];
+  static const List<String> PORT_FLOW_TYPE_LIST = [
+    'none',
+    'RTS',
+    'CTS',
+    'XON',
+    'XOFF'
+  ];
 }

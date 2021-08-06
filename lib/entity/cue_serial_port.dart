@@ -1,3 +1,5 @@
+import 'package:cue/constants/port_param_constant.dart';
+
 class CueSerialPort {
   /// 这个配置的项目的名称
   late String projectName;
@@ -15,4 +17,13 @@ class CueSerialPort {
   late String parity;
 
   late int dataBits;
+
+  static CueSerialPort getDefaultConfigPort() {
+    var cuePort = CueSerialPort();
+    cuePort.baudRate = PortParamConstant.COMMON_BAUDRATE_LIST.first;
+    cuePort.parity = PortParamConstant.PORT_PARITY_LIST.first;
+    cuePort.dataBits = PortParamConstant.PORT_DATA_BITS_LIST.last;
+    cuePort.flowType = PortParamConstant.PORT_FLOW_TYPE_LIST.first;
+    return cuePort;
+  }
 }
