@@ -26,7 +26,7 @@ void getAll() {
   var serialPort1 = availablePorts.first;
 
   SerialPortConfig portConfig = new SerialPortConfig();
-  portConfig.baudRate = 115200;
+  portConfig.baudRate = 2000000;
   portConfig.stopBits = 1;
   portConfig.bits = 8;
 
@@ -69,8 +69,8 @@ class _AppState extends State<MyApp> {
 
 void getSerialPortData(
     SerialPort serialPort, SerialPortConfig serialPortConfig) {
-  serialPort.config = serialPortConfig;
   var isSuccess = serialPort.open(mode: SerialPortMode.readWrite);
+  serialPort.config = serialPortConfig;
 
   if (!serialPort.isOpen) {
     developer.log("we have not open the serial port of ${serialPort.name}",

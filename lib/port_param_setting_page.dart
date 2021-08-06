@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:developer' as developer;
 
 import 'package:cue/entity/cue_serial_port.dart';
@@ -14,6 +15,7 @@ import 'ParityDropDownButton.dart';
 import 'PortListDropDownButton.dart';
 import 'StopBitDropDownButton.dart';
 import 'colors/AppColors.dart';
+import 'main.dart';
 
 /// This is the stateful widget that the main application instantiates.
 class PortParamSettingPage extends StatefulWidget {
@@ -96,7 +98,25 @@ class _PortParamSettingPage extends State<PortParamSettingPage> {
               child: Row(
                 children: [
                   ElevatedButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        developer
+                            .log("open the port = ${cuePortModel.value.name}");
+                        List<SerialPort>? allPortList =
+                            PortUtils.getUsbAvailablePort();
+                        for (final port in allPortList!) {
+                          developer.log("port.name = ${port.name}");
+                          if (port.name == cuePortModel.value.name) {
+                            developer.log("port.name 111111 = ${port.name}");
+                            SerialPortConfig portConfig =
+                                new SerialPortConfig();
+                            portConfig.baudRate = 2000000;
+                            portConfig.bits = 8;
+                            portConfig.stopBits = 1;
+                            getSerialPortData(port, portConfig);
+                            break;
+                          }
+                        }
+                      },
                       style: ButtonStyle(
                           backgroundColor:
                               MaterialStateProperty.all(AppColors.primaryBlue)),
@@ -298,4 +318,27 @@ class _PortParamSettingPage extends State<PortParamSettingPage> {
       ],
     );
   }
+}
+
+void getSerialPortData(
+    SerialPort serialPort, SerialPortConfig serialPortConfig) {
+  serialPort.close();
+  var isSuccess = serialPort.open(mode: SerialPortMode.readWrite);
+  serialPort.config = serialPortConfig;
+
+  if (!serialPort.isOpen) {
+    developer.log("we have not open the serial port of ${serialPort.name}",
+        name: "getSerialPortData");
+    return null;
+  }
+  developer.log(
+      "Serial Port of ${serialPort.name} the open status = ${serialPort.isOpen} ",
+      name: "getSerialPortData");
+  var reader = SerialPortReader(serialPort);
+  reader.stream.listen((dataBytes) {
+    var dataStr = utf8.decode(dataBytes, allowMalformed: true);
+    DateTime currentDate = DateTime.now();
+    var displayLog = "[$currentDate]$dataStr";
+    developer.log("${displayLog.trim()}", name: "getSerialPortData");
+  });
 }

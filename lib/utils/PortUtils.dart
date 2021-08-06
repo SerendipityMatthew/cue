@@ -17,7 +17,7 @@ class PortUtils {
   static List<SerialPort>? getUsbAvailablePort() {
     var availablePortList = getAllAvailablePort();
     if (Platform.isMacOS) {
-      var usbPortList = List<SerialPort>.generate(0, (index) => SerialPort("Matthew"));
+      var usbPortList = List<SerialPort>.empty(growable: true);
       availablePortList.forEach((port) {
         if (port.name!.contains("USB")) {
           usbPortList.add(port);
