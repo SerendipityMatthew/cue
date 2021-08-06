@@ -1,9 +1,23 @@
+
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
+import 'model/cue_serial_port_model.dart';
+
 /// This is the stateful widget that the main application instantiates.
 class BaudrateDropDownButton extends StatefulWidget {
-  const BaudrateDropDownButton({Key? key}) : super(key: key);
+  final List<int> baudRateList;
+  final ValueChanged<String?>? onValueChanged;
+  final CueSerialPortModel model;
+  final VoidCallback? onDropDownTap;
+
+  const BaudrateDropDownButton(
+      {Key? key,
+      required this.baudRateList,
+      this.onValueChanged,
+      this.onDropDownTap,
+      required this.model})
+      : super(key: key);
 
   @override
   State<BaudrateDropDownButton> createState() => _BaudrateDropDownButtonState();
@@ -15,17 +29,9 @@ class _BaudrateDropDownButtonState extends State<BaudrateDropDownButton> {
 
   @override
   Widget build(BuildContext context) {
-    List<String> portList = [
-      '9 600',
-      '19 200',
-      '38 400',
-      '57 600',
-      '115 200',
-      '200 000'
-    ];
 
     var dropDownButton = DropdownButton<String>(
-      value: dropdownValue,
+      value: this.widget.model.value.baudRate.toString(),
       icon: const Icon(Icons.arrow_downward),
       iconSize: 24,
       elevation: 16,
@@ -36,13 +42,14 @@ class _BaudrateDropDownButtonState extends State<BaudrateDropDownButton> {
       ),
       onChanged: (String? newValue) {
         setState(() {
-          dropdownValue = newValue!;
+          this.widget.model.value.baudRate = int.parse(newValue!);
+          this.widget.onValueChanged!(newValue);
         });
       },
-      items: portList.map<DropdownMenuItem<String>>((String value) {
+      items: this.widget.baudRateList.map<DropdownMenuItem<String>>((int value) {
         return DropdownMenuItem<String>(
-          value: value,
-          child: Text(value),
+          value: value.toString(),
+          child: Text(value.toString()),
         );
       }).toList(),
     );

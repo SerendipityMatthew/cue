@@ -9,10 +9,10 @@ class CueSerialPort {
   late String alias;
 
   /// 波特率
-  late String baudRate;
+  late int baudRate;
   late String flowType;
   late String stopBits;
   late String parity;
 
-  late String dataBits;
+  late int dataBits;
 }

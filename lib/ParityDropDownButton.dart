@@ -1,9 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
+import 'model/cue_serial_port_model.dart';
+
 /// This is the stateful widget that the main application instantiates.
 class ParityDropDownButton extends StatefulWidget {
-  const ParityDropDownButton({Key? key}) : super(key: key);
+  final List<String> parityList;
+  final ValueChanged<String?>? onValueChanged;
+  final CueSerialPortModel model;
+  final VoidCallback? onDropDownTap;
+
+  const ParityDropDownButton(
+      {Key? key,
+      required this.parityList,
+      required this.model,
+      this.onValueChanged,
+      this.onDropDownTap})
+      : super(key: key);
 
   @override
   State<ParityDropDownButton> createState() => _ParityDropDownButtonState();
@@ -11,20 +24,11 @@ class ParityDropDownButton extends StatefulWidget {
 
 /// This is the private State class that goes with MyStatefulWidget.
 class _ParityDropDownButtonState extends State<ParityDropDownButton> {
-  String dropdownValue = 'none';
 
   @override
   Widget build(BuildContext context) {
-    List<String> portList = [
-      'none',
-      'even',
-      'odd',
-      'mark',
-      'space',
-    ];
-
     return DropdownButton<String>(
-      value: dropdownValue,
+      value: this.widget.model.value.parity,
       icon: const Icon(Icons.arrow_downward),
       iconSize: 24,
       elevation: 16,
@@ -35,10 +39,12 @@ class _ParityDropDownButtonState extends State<ParityDropDownButton> {
       ),
       onChanged: (String? newValue) {
         setState(() {
-          dropdownValue = newValue!;
+          this.widget.model.value.parity = newValue!;
+          this.widget.onValueChanged!(newValue);
         });
       },
-      items: portList.map<DropdownMenuItem<String>>((String value) {
+      items:
+          this.widget.parityList.map<DropdownMenuItem<String>>((String value) {
         return DropdownMenuItem<String>(
           value: value,
           child: Text(value),

@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:developer' as developer;
 
+import 'package:cue/constants/port_param_constant.dart';
 import 'package:cue/entity/cue_serial_port.dart';
 import 'package:cue/model/cue_serial_port_model.dart';
 import 'package:cue/utils/PortUtils.dart';
@@ -46,7 +47,13 @@ class _PortParamSettingPage extends State<PortParamSettingPage> {
 
   @override
   Widget build(BuildContext context) {
-    var cuePortModel = CueSerialPortModel(CueSerialPort()..name = _portList[0]);
+    var portOpenStatus = "Open Port";
+    var cuePort = CueSerialPort();
+    cuePort.name = _portList[0];
+    cuePort.baudRate = PortParamConstant.COMMON_BAUDRATE_LIST.first;
+    cuePort.parity = PortParamConstant.PORT_PARITY_LIST.first;
+    cuePort.dataBits = PortParamConstant.PORT_DATA_BITS_LIST.last;
+    var cuePortModel = CueSerialPortModel(cuePort);
     _portList = getPortName();
     return Column(
       mainAxisAlignment: MainAxisAlignment.end,
@@ -109,10 +116,11 @@ class _PortParamSettingPage extends State<PortParamSettingPage> {
                             developer.log("port.name 111111 = ${port.name}");
                             SerialPortConfig portConfig =
                                 new SerialPortConfig();
-                            portConfig.baudRate = 2000000;
+                            portConfig.baudRate = cuePortModel.value.baudRate;
                             portConfig.bits = 8;
                             portConfig.stopBits = 1;
                             getSerialPortData(port, portConfig);
+
                             break;
                           }
                         }
@@ -121,7 +129,7 @@ class _PortParamSettingPage extends State<PortParamSettingPage> {
                           backgroundColor:
                               MaterialStateProperty.all(AppColors.primaryBlue)),
                       child: Text(
-                        "Open Port",
+                        portOpenStatus,
                         style: TextStyle(color: AppColors.white),
                       )),
                   SizedBox(
@@ -165,7 +173,17 @@ class _PortParamSettingPage extends State<PortParamSettingPage> {
                     width: 30,
                     height: 40,
                   ),
-                  BaudrateDropDownButton()
+                  BaudrateDropDownButton(
+                    baudRateList: PortParamConstant.COMMON_BAUDRATE_LIST,
+                    model: cuePortModel,
+                    onDropDownTap: () {
+                      _portList = getPortName();
+                    },
+                    onValueChanged: (portName) {
+                      developer.log(
+                          "cuePortModel.value.baudRate = ${cuePortModel.value.baudRate}");
+                    },
+                  )
                 ],
               ),
             ),
@@ -192,7 +210,16 @@ class _PortParamSettingPage extends State<PortParamSettingPage> {
                     width: 70,
                     height: 40,
                   ),
-                  ParityDropDownButton()
+                  ParityDropDownButton(
+                    parityList: PortParamConstant.PORT_PARITY_LIST,
+                    model: cuePortModel,
+                    onDropDownTap: () {
+                    },
+                    onValueChanged: (portName) {
+                      developer.log(
+                          "cuePortModel.value.parity = ${cuePortModel.value.parity}");
+                    },
+                  )
                 ],
               ),
             ),
@@ -283,7 +310,16 @@ class _PortParamSettingPage extends State<PortParamSettingPage> {
                   ),
                   Container(
                     width: 40,
-                    child: DataBitsDropDownButton(),
+                    child: DataBitsDropDownButton(
+                      dataBitsList: PortParamConstant.PORT_DATA_BITS_LIST,
+                      model: cuePortModel,
+                      onDropDownTap: () {
+                      },
+                      onValueChanged: (portName) {
+                        developer.log(
+                            "cuePortModel.value.dataBits = ${cuePortModel.value.dataBits}");
+                      },
+                    ),
                   )
                 ],
               ),

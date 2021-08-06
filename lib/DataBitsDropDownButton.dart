@@ -1,9 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
+import 'model/cue_serial_port_model.dart';
+
 /// This is the stateful widget that the main application instantiates.
 class DataBitsDropDownButton extends StatefulWidget {
-  const DataBitsDropDownButton({Key? key}) : super(key: key);
+  final List<int> dataBitsList;
+  final ValueChanged<String?>? onValueChanged;
+  final CueSerialPortModel model;
+  final VoidCallback? onDropDownTap;
+
+  const DataBitsDropDownButton(
+      {Key? key,
+      required this.dataBitsList,
+      required this.model,
+      this.onValueChanged,
+      this.onDropDownTap})
+      : super(key: key);
 
   @override
   State<DataBitsDropDownButton> createState() => _DataBitsDropDownButtonState();
@@ -15,10 +28,9 @@ class _DataBitsDropDownButtonState extends State<DataBitsDropDownButton> {
 
   @override
   Widget build(BuildContext context) {
-    List<String> portList = ['5', '6', '7', '8'];
 
     return DropdownButton<String>(
-      value: dropdownValue,
+      value: this.widget.model.value.dataBits.toString(),
       icon: const Icon(Icons.arrow_downward),
       iconSize: 24,
       elevation: 16,
@@ -29,13 +41,14 @@ class _DataBitsDropDownButtonState extends State<DataBitsDropDownButton> {
       ),
       onChanged: (String? newValue) {
         setState(() {
-          dropdownValue = newValue!;
+          this.widget.model.value.dataBits = int.parse(newValue!);
+          this.widget.onValueChanged!(newValue);
         });
       },
-      items: portList.map<DropdownMenuItem<String>>((String value) {
+      items: this.widget.dataBitsList.map<DropdownMenuItem<String>>((int? value) {
         return DropdownMenuItem<String>(
-          value: value,
-          child: Text(value),
+          value: value.toString(),
+          child: Text(value.toString()),
         );
       }).toList(),
     );

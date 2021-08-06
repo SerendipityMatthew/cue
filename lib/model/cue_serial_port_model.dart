@@ -6,9 +6,9 @@ class CueSerialPortModel extends ValueNotifier<CueSerialPort> {
 
   void setBaudRate(String baudRate) {
     if (baudRate.isEmpty) {
-      value.baudRate = '';
+      value.baudRate = 0;
     } else {
-      value.baudRate = baudRate;
+      value.baudRate = int.parse(baudRate);
     }
   }
 
