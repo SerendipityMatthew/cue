@@ -20,7 +20,10 @@ import 'main.dart';
 
 /// This is the stateful widget that the main application instantiates.
 class PortParamSettingPage extends StatefulWidget {
-  const PortParamSettingPage({Key? key}) : super(key: key);
+  final ValueChanged<String?>? portDataCallBack;
+
+  const PortParamSettingPage({Key? key, required this.portDataCallBack})
+      : super(key: key);
 
   @override
   State<PortParamSettingPage> createState() => _PortParamSettingPage();
@@ -211,8 +214,7 @@ class _PortParamSettingPage extends State<PortParamSettingPage> {
                   ParityDropDownButton(
                     parityList: PortParamConstant.PORT_PARITY_LIST,
                     model: cuePortModel,
-                    onDropDownTap: () {
-                    },
+                    onDropDownTap: () {},
                     onValueChanged: (portName) {
                       developer.log(
                           "cuePortModel.value.parity = ${cuePortModel.value.parity}");
@@ -277,10 +279,9 @@ class _PortParamSettingPage extends State<PortParamSettingPage> {
                     width: 10,
                   ),
                   FlowTypeDropDownButton(
-                    flowTypeList:PortParamConstant.PORT_FLOW_TYPE_LIST,
+                    flowTypeList: PortParamConstant.PORT_FLOW_TYPE_LIST,
                     model: cuePortModel,
-                    onDropDownTap: () {
-                    },
+                    onDropDownTap: () {},
                     onValueChanged: (portName) {
                       developer.log(
                           "cuePortModel.value.flowType = ${cuePortModel.value.flowType}");
@@ -320,8 +321,7 @@ class _PortParamSettingPage extends State<PortParamSettingPage> {
                     child: DataBitsDropDownButton(
                       dataBitsList: PortParamConstant.PORT_DATA_BITS_LIST,
                       model: cuePortModel,
-                      onDropDownTap: () {
-                      },
+                      onDropDownTap: () {},
                       onValueChanged: (portName) {
                         developer.log(
                             "cuePortModel.value.dataBits = ${cuePortModel.value.dataBits}");
@@ -361,27 +361,28 @@ class _PortParamSettingPage extends State<PortParamSettingPage> {
       ],
     );
   }
-}
 
-void getSerialPortData(
-    SerialPort serialPort, SerialPortConfig serialPortConfig) {
-  serialPort.close();
-  var isSuccess = serialPort.open(mode: SerialPortMode.readWrite);
-  serialPort.config = serialPortConfig;
+  void getSerialPortData(
+      SerialPort serialPort, SerialPortConfig serialPortConfig) {
+    serialPort.close();
+    var isSuccess = serialPort.open(mode: SerialPortMode.readWrite);
+    serialPort.config = serialPortConfig;
 
-  if (!serialPort.isOpen) {
-    developer.log("we have not open the serial port of ${serialPort.name}",
+    if (!serialPort.isOpen) {
+      developer.log("we have not open the serial port of ${serialPort.name}",
+          name: "getSerialPortData");
+      return null;
+    }
+    developer.log(
+        "Serial Port of ${serialPort.name} the open status = ${serialPort.isOpen} ",
         name: "getSerialPortData");
-    return null;
+    var reader = SerialPortReader(serialPort);
+    reader.stream.listen((dataBytes) {
+      var dataStr = utf8.decode(dataBytes, allowMalformed: true);
+      DateTime currentDate = DateTime.now();
+      var displayLog = "[$currentDate]$dataStr";
+      this.widget.portDataCallBack!(displayLog);
+      developer.log("${displayLog.trim()}", name: "getSerialPortData");
+    });
   }
-  developer.log(
-      "Serial Port of ${serialPort.name} the open status = ${serialPort.isOpen} ",
-      name: "getSerialPortData");
-  var reader = SerialPortReader(serialPort);
-  reader.stream.listen((dataBytes) {
-    var dataStr = utf8.decode(dataBytes, allowMalformed: true);
-    DateTime currentDate = DateTime.now();
-    var displayLog = "[$currentDate]$dataStr";
-    developer.log("${displayLog.trim()}", name: "getSerialPortData");
-  });
 }
