@@ -16,7 +16,6 @@ import 'ParityDropDownButton.dart';
 import 'PortListDropDownButton.dart';
 import 'StopBitDropDownButton.dart';
 import 'colors/AppColors.dart';
-import 'main.dart';
 
 /// This is the stateful widget that the main application instantiates.
 class PortParamSettingPage extends StatefulWidget {
@@ -37,6 +36,7 @@ class _PortParamSettingPage extends State<PortParamSettingPage> {
 
   List<String> getPortName() {
     List<SerialPort> serialPortList = PortUtils.getAllAvailablePort();
+    _portList.clear();
     for (final serialPort in serialPortList) {
       var portName = serialPort.name;
       if (portName != null) {

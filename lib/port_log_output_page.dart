@@ -2,9 +2,13 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class PortLogOutputPage extends StatefulWidget {
+  final ValueNotifier<String> logValueNotifier;
+
+  const PortLogOutputPage({Key? key, required this.logValueNotifier})
+      : super(key: key);
 
   @override
-  State<StatefulWidget> createState() {
+  State<PortLogOutputPage> createState() {
     // TODO: implement createState
     return _PortLogOutputPage();
   }
@@ -20,13 +24,28 @@ class _PortLogOutputPage extends State<PortLogOutputPage> {
           height: 400,
           width: 950,
           color: Colors.grey[300],
-          child: Text(
-            "Flutter 支持三种模式编译 app，也支持使用 headless 模式来测试。这篇文档解释了这三种模式，并且告诉你什么时候应该使用哪种模式。关于 headless 测试的更多信息，可以查看 单元测试。选择哪种编译模式取决于你处于哪个开发周期中。是调试代码阶段，还是需要性能优化分析，抑或是准备部署你的应用了呢？快速简要介绍下列三种构建模式：",
-            style:
-                Theme.of(context).textTheme.bodyText2!.copyWith(fontSize: 16),
-          ),
+          child: buildValueListenableBuilder(),
         ),
       ],
     );
+  }
+
+  ///第二步定义 数据变化后监听的 Widget
+  Widget buildValueListenableBuilder() {
+    return ValueListenableBuilder(
+      ///数据发生变化时回调
+      builder: (context, value, child) {
+        return Text(value.toString());
+      },
+
+      ///监听的数据
+      valueListenable: this.widget.logValueNotifier,
+    );
+  }
+
+  ///第三步就是数据变化后
+  void testFunction() {
+    ///赋值更新
+    this.widget.logValueNotifier.value = '传递的测试数据';
   }
 }

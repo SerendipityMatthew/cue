@@ -25,9 +25,8 @@ class PortUtils {
       });
       return usbPortList;
     }
-    if (Platform.isWindows){
-        return availablePortList;
+    if (Platform.isWindows) {
+      return availablePortList;
     }
   }
-
 }
