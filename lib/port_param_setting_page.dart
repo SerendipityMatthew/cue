@@ -382,7 +382,7 @@ class _PortParamSettingPage extends State<PortParamSettingPage> {
       DateTime currentDate = DateTime.now();
       var displayLog = "[$currentDate]$dataStr";
       this.widget.portDataCallBack!(displayLog);
-      developer.log("${displayLog.trim()}", name: "getSerialPortData");
+      // developer.log("${displayLog.trim()}", name: "getSerialPortData");
     });
   }
 }

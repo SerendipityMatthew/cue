@@ -24,7 +24,11 @@ class _PortLogOutputPage extends State<PortLogOutputPage> {
           height: 400,
           width: 950,
           color: Colors.grey[300],
-          child: buildValueListenableBuilder(),
+          child: ListView(
+            children: [
+              buildValueListenableBuilder(),
+            ],
+          ),
         ),
       ],
     );

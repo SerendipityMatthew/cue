@@ -1,5 +1,3 @@
-import 'dart:developer' as developer;
-
 import 'package:cue/most_used_command.dart';
 import 'package:cue/port_log_output_page.dart';
 import 'package:cue/port_param_setting_page.dart';
@@ -25,8 +23,7 @@ class HomePage extends StatelessWidget {
                   children: [
                     PortParamSettingPage(
                       portDataCallBack: (portLog) {
-                        developer.log(portLog!, name: "Matthew");
-                        logValueNotifier.value += portLog;
+                        logValueNotifier.value += portLog!;
                       },
                     ),
                     SizedBox(
