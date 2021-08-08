@@ -37,6 +37,7 @@ class _PortParamSettingPage extends State<PortParamSettingPage> {
   List<String> getPortName() {
     List<SerialPort> serialPortList = PortUtils.getAllAvailablePort();
     _portList.clear();
+    _portList.add("TCP/UDP");
     for (final serialPort in serialPortList) {
       var portName = serialPort.name;
       if (portName != null) {
