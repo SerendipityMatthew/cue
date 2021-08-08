@@ -24,11 +24,8 @@ class DataBitsDropDownButton extends StatefulWidget {
 
 /// This is the private State class that goes with MyStatefulWidget.
 class _DataBitsDropDownButtonState extends State<DataBitsDropDownButton> {
-  String dropdownValue = '5';
-
   @override
   Widget build(BuildContext context) {
-
     return DropdownButton<String>(
       value: this.widget.model.value.dataBits.toString(),
       icon: const Icon(Icons.arrow_downward),
@@ -45,7 +42,8 @@ class _DataBitsDropDownButtonState extends State<DataBitsDropDownButton> {
           this.widget.onValueChanged!(newValue);
         });
       },
-      items: this.widget.dataBitsList.map<DropdownMenuItem<String>>((int? value) {
+      items:
+          this.widget.dataBitsList.map<DropdownMenuItem<String>>((int? value) {
         return DropdownMenuItem<String>(
           value: value.toString(),
           child: Text(value.toString()),

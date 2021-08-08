@@ -24,11 +24,8 @@ class FlowTypeDropDownButton extends StatefulWidget {
 
 /// This is the private State class that goes with MyStatefulWidget.
 class _FlowTypeDropDownButtonState extends State<FlowTypeDropDownButton> {
-  String dropdownValue = 'none';
-
   @override
   Widget build(BuildContext context) {
-
     return DropdownButton<String>(
       value: this.widget.model.value.flowType,
       icon: const Icon(Icons.arrow_downward),
@@ -41,11 +38,14 @@ class _FlowTypeDropDownButtonState extends State<FlowTypeDropDownButton> {
       ),
       onChanged: (String? newValue) {
         setState(() {
-            this.widget.model.value.flowType = newValue!;
-            this.widget.onValueChanged!(newValue);
+          this.widget.model.value.flowType = newValue!;
+          this.widget.onValueChanged!(newValue);
         });
       },
-      items: this.widget.flowTypeList.map<DropdownMenuItem<String>>((String value) {
+      items: this
+          .widget
+          .flowTypeList
+          .map<DropdownMenuItem<String>>((String value) {
         return DropdownMenuItem<String>(
           value: value,
           child: Text(value),

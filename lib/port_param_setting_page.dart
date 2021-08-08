@@ -251,7 +251,11 @@ class _PortParamSettingPage extends State<PortParamSettingPage> {
                     height: 40,
                     width: 80,
                   ),
-                  StopBitDropDownButton()
+                  StopBitDropDownButton(
+                    stopBitList: PortParamConstant.PORT_STOP_BIT_LIST,
+                    portModel: cuePortModel,
+                    onValueChanged: (stopBit) {},
+                  )
                 ],
               ),
             ),

@@ -24,6 +24,7 @@ class CueSerialPort {
     cuePort.parity = PortParamConstant.PORT_PARITY_LIST.first;
     cuePort.dataBits = PortParamConstant.PORT_DATA_BITS_LIST.last;
     cuePort.flowType = PortParamConstant.PORT_FLOW_TYPE_LIST.first;
+    cuePort.stopBits = PortParamConstant.PORT_STOP_BIT_LIST.first;
     return cuePort;
   }
 }

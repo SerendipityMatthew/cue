@@ -27,4 +27,5 @@ class PortParamConstant {
     'XON',
     'XOFF'
   ];
+  static const List<String> PORT_STOP_BIT_LIST = ["1", "2"];
 }

@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
@@ -25,11 +24,8 @@ class BaudrateDropDownButton extends StatefulWidget {
 
 /// This is the private State class that goes with MyStatefulWidget.
 class _BaudrateDropDownButtonState extends State<BaudrateDropDownButton> {
-  String dropdownValue = '9 600';
-
   @override
   Widget build(BuildContext context) {
-
     var dropDownButton = DropdownButton<String>(
       value: this.widget.model.value.baudRate.toString(),
       icon: const Icon(Icons.arrow_downward),
@@ -46,7 +42,8 @@ class _BaudrateDropDownButtonState extends State<BaudrateDropDownButton> {
           this.widget.onValueChanged!(newValue);
         });
       },
-      items: this.widget.baudRateList.map<DropdownMenuItem<String>>((int value) {
+      items:
+          this.widget.baudRateList.map<DropdownMenuItem<String>>((int value) {
         return DropdownMenuItem<String>(
           value: value.toString(),
           child: Text(value.toString()),
