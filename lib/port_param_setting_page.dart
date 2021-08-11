@@ -397,7 +397,7 @@ class _PortParamSettingPage extends State<PortParamSettingPage> {
     reader.stream.listen((dataBytes) {
       var dataStr = utf8.decode(dataBytes, allowMalformed: true);
       DateTime currentDate = DateTime.now();
-      var displayLog = "[$currentDate]$dataStr";
+      var displayLog = "[$currentDate]$dataStr\n";
       this.widget.portDataCallBack!(displayLog);
       // developer.log("${displayLog.trim()}", name: "getSerialPortData");
     });
