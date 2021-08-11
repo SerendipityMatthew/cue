@@ -31,6 +31,8 @@ dependencies:
   flutter_localizations:
     sdk: flutter
   intl: ^0.17.0
+# add this line to your dependencies
+  fluttertoast: ^8.0.8
 
 dev_dependencies:
   flutter_test:
