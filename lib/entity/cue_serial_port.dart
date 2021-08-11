@@ -20,7 +20,8 @@ class CueSerialPort {
 
   static CueSerialPort getDefaultConfigPort() {
     var cuePort = CueSerialPort();
-    cuePort.baudRate = PortParamConstant.COMMON_BAUDRATE_LIST.first;
+    cuePort.baudRate = int.parse(
+        PortParamConstant.COMMON_BAUDRATE_LIST.first.replaceAll(",", ""));
     cuePort.parity = PortParamConstant.PORT_PARITY_LIST.first;
     cuePort.dataBits = PortParamConstant.PORT_DATA_BITS_LIST.last;
     cuePort.flowType = PortParamConstant.PORT_FLOW_TYPE_LIST.first;
