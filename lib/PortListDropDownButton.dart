@@ -47,7 +47,13 @@ class _PortListDropDownButtonState extends State<PortListDropDownButton> {
       items: this.widget.portList.map<DropdownMenuItem<String>>((String value) {
         return DropdownMenuItem<String>(
           value: value,
-          child: Text(value),
+          child: Container(
+            width: 80,
+            child: Text(
+              value,
+              overflow: TextOverflow.ellipsis,
+            ),
+          ),
         );
       }).toList(),
     );

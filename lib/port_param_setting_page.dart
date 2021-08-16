@@ -58,7 +58,6 @@ class _PortParamSettingPage extends State<PortParamSettingPage> {
     var cuePortModel = CueSerialPortModel(cuePort);
     _portList = getPortName();
     return Column(
-      mainAxisAlignment: MainAxisAlignment.end,
       children: [
         Row(
           mainAxisAlignment: MainAxisAlignment.start,
@@ -66,7 +65,7 @@ class _PortParamSettingPage extends State<PortParamSettingPage> {
             Container(
               color: Colors.black12,
               height: 40,
-              width: 210,
+              width: 180,
               child: Row(
                 children: [
                   ElevatedButton(
@@ -79,20 +78,6 @@ class _PortParamSettingPage extends State<PortParamSettingPage> {
                       style: TextStyle(color: AppColors.white),
                     ),
                   ),
-                  SizedBox(
-                    height: 40,
-                    width: 10,
-                  ),
-                  ElevatedButton(
-                    onPressed: null,
-                    style: ButtonStyle(
-                        backgroundColor:
-                            MaterialStateProperty.all(AppColors.primaryBlue)),
-                    child: Text(
-                      "Hex 显示",
-                      style: TextStyle(color: AppColors.white),
-                    ),
-                  )
                 ],
               ),
             ),
@@ -103,7 +88,7 @@ class _PortParamSettingPage extends State<PortParamSettingPage> {
             Container(
               color: Colors.black12,
               height: 40,
-              width: 352,
+              width: 200,
               child: Row(
                 children: [
                   ElevatedButton(
@@ -237,7 +222,7 @@ class _PortParamSettingPage extends State<PortParamSettingPage> {
             Container(
               color: Colors.black12,
               height: 40,
-              width: 210,
+              width: 180,
               child: Row(
                 children: [
                   ElevatedButton(
@@ -251,13 +236,17 @@ class _PortParamSettingPage extends State<PortParamSettingPage> {
                       )),
                   SizedBox(
                     height: 40,
-                    width: 80,
+                    width: 40,
                   ),
                   StopBitDropDownButton(
                     stopBitList: PortParamConstant.PORT_STOP_BIT_LIST,
                     portModel: cuePortModel,
                     onValueChanged: (stopBit) {},
-                  )
+                  ),
+                  SizedBox(
+                    height: 40,
+                    width: 10,
+                  ),
                 ],
               ),
             ),
@@ -399,7 +388,7 @@ class _PortParamSettingPage extends State<PortParamSettingPage> {
       DateTime currentDate = DateTime.now();
       var displayLog = "[$currentDate]$dataStr\n";
       this.widget.portDataCallBack!(displayLog);
-      // developer.log("${displayLog.trim()}", name: "getSerialPortData");
+      developer.log("${displayLog.trim()}");
     });
   }
 }
