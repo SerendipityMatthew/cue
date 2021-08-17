@@ -93,25 +93,7 @@ class _PortParamSettingPage extends State<PortParamSettingPage> {
                 children: [
                   ElevatedButton(
                       onPressed: () {
-                        developer
-                            .log("open the port = ${cuePortModel.value.name}");
-                        List<SerialPort>? allPortList =
-                            PortUtils.getUsbAvailablePort();
-                        for (final port in allPortList!) {
-                          developer.log("port.name = ${port.name}");
-                          if (port.name == cuePortModel.value.name) {
-                            developer.log("port.name 111111 = ${port.name}");
-                            SerialPortConfig portConfig =
-                                new SerialPortConfig();
-                            portConfig.baudRate = cuePortModel.value.baudRate;
-                            portConfig.bits = cuePortModel.value.dataBits;
-                            portConfig.stopBits = 1;
-                            portConfig.cts;
-                            getSerialPortData(port, portConfig);
-
-                            break;
-                          }
-                        }
+                        _openSerialPort(cuePortModel);
                       },
                       style: ButtonStyle(
                           backgroundColor:
@@ -355,6 +337,24 @@ class _PortParamSettingPage extends State<PortParamSettingPage> {
         ),
       ],
     );
+  }
+
+  void _openSerialPort(CueSerialPortModel cuePortModel) {
+    developer.log("open the port = ${cuePortModel.value.name}");
+    List<SerialPort>? allPortList = PortUtils.getUsbAvailablePort();
+    for (final port in allPortList!) {
+      developer.log("port.name = ${port.name}");
+      if (port.name == cuePortModel.value.name) {
+        developer.log("port.name 111111 = ${port.name}");
+        SerialPortConfig portConfig = new SerialPortConfig();
+        portConfig.baudRate = cuePortModel.value.baudRate;
+        portConfig.bits = cuePortModel.value.dataBits;
+        portConfig.stopBits = 1;
+        portConfig.cts;
+        getSerialPortData(port, portConfig);
+        break;
+      }
+    }
   }
 
   void getSerialPortData(

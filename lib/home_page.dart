@@ -39,7 +39,9 @@ class HomePage extends StatelessWidget {
                   width: 30,
                   height: 20,
                 ),
-                InputCommandPage(),
+                Container(
+                  child: InputCommandPage(),
+                ),
               ],
             ),
             MostUsedCommandPage()
