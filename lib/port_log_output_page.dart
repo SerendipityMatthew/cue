@@ -15,9 +15,9 @@ class PortLogOutputPage extends StatefulWidget {
 }
 
 class _PortLogOutputPage extends State<PortLogOutputPage> {
+  ScrollController _scrollController = new ScrollController();
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
     return Row(
       children: [
         Container(
@@ -25,6 +25,8 @@ class _PortLogOutputPage extends State<PortLogOutputPage> {
           width: 950,
           color: Colors.grey[300],
           child: ListView(
+            controller: _scrollController,
+            reverse: true,
             children: [
               buildValueListenableBuilder(),
             ],
@@ -39,17 +41,13 @@ class _PortLogOutputPage extends State<PortLogOutputPage> {
     return ValueListenableBuilder(
       ///数据发生变化时回调
       builder: (context, value, child) {
+        _scrollController.animateTo(0.0,
+            duration: Duration(microseconds: 300), curve: Curves.easeOut);
         return Text(value.toString());
       },
 
       ///监听的数据
       valueListenable: this.widget.logValueNotifier,
     );
-  }
-
-  ///第三步就是数据变化后
-  void testFunction() {
-    ///赋值更新
-    this.widget.logValueNotifier.value = '传递的测试数据';
   }
 }

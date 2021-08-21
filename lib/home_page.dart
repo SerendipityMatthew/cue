@@ -12,7 +12,7 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    ValueNotifier<String> logValueNotifier = ValueNotifier<String>('');
+    ValueNotifier<String> _logValueNotifier = ValueNotifier<String>('');
     return MaterialApp(
       home: Scaffold(
         body: Row(
@@ -23,7 +23,7 @@ class HomePage extends StatelessWidget {
                   children: [
                     PortParamSettingPage(
                       portDataCallBack: (portLog) {
-                        logValueNotifier.value += portLog!;
+                        _logValueNotifier.value += portLog!;
                       },
                     ),
                     SizedBox(
@@ -31,7 +31,7 @@ class HomePage extends StatelessWidget {
                       height: 20,
                     ),
                     PortLogOutputPage(
-                      logValueNotifier: logValueNotifier,
+                      logValueNotifier: _logValueNotifier,
                     ),
                   ],
                 ),
