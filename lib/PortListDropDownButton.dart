@@ -51,6 +51,7 @@ class _PortListDropDownButtonState extends State<PortListDropDownButton> {
             width: 140,
             child: Text(
               value,
+              style: TextStyle(fontSize: 10),
               overflow: TextOverflow.ellipsis,
             ),
           ),
