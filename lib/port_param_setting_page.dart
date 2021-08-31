@@ -8,7 +8,6 @@ import 'package:cue/utils/PortUtils.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_libserialport/flutter_libserialport.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 
 import 'BaudrateDropDownButton.dart';
 import 'DataBitsDropDownButton.dart';
@@ -364,14 +363,8 @@ class _PortParamSettingPage extends State<PortParamSettingPage> {
     try {
       serialPort.config = serialPortConfig;
     } on Exception {
-      Fluttertoast.showToast(
-          msg: "打开端口出现错误",
-          toastLength: Toast.LENGTH_SHORT,
-          gravity: ToastGravity.BOTTOM,
-          timeInSecForIosWeb: 1,
-          backgroundColor: Colors.black45,
-          textColor: Colors.white,
-          fontSize: 16.0);
+      SnackBar snackBar = SnackBar(content: Text("打开端口号失败"));
+      ScaffoldMessenger.of(context).showSnackBar(snackBar);
     }
 
     if (!serialPort.isOpen) {
