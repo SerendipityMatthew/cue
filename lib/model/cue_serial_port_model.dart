@@ -15,4 +15,9 @@ class CueSerialPortModel extends ValueNotifier<CueSerialPort> {
   void setName(String name) {
     value.name = name;
   }
+
+  @override
+  String toString() {
+    return "value = ${this.value.toString()}";
+  }
 }

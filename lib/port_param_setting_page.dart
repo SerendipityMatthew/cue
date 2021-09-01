@@ -340,6 +340,7 @@ class _PortParamSettingPage extends State<PortParamSettingPage> {
 
   void _openSerialPort(CueSerialPortModel cuePortModel) {
     developer.log("open the port = ${cuePortModel.value.name}");
+    developer.log("open the port cuePortModel = $cuePortModel");
     List<SerialPort>? allPortList = PortUtils.getUsbAvailablePort();
     for (final port in allPortList!) {
       developer.log("port.name = ${port.name}");
