@@ -47,7 +47,16 @@ class _PortLogOutputPage extends State<PortLogOutputPage> {
         /// TODO 这个是表示始终拉到最底部显示的数据, 当鼠标滑动的时候, 这个应该停止
         _scrollController.animateTo(0.0,
             duration: Duration(microseconds: 300), curve: Curves.easeOut);
-        return SelectableText(value.toString());
+        return SelectableText(
+          value.toString(),
+
+          /// selection 得到的是一个偏移量, 需要转换成相关的字符串,
+          /// 然而我们的字符串都是主追加到这个 text 里面的, 文本很大
+          /// TODO 解决文本过大的问题
+          onSelectionChanged: (selection, cause) {
+            developer.log("selection = $selection, cause = $cause");
+          },
+        );
       },
 
       ///监听的数据
