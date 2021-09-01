@@ -341,6 +341,10 @@ class _PortParamSettingPage extends State<PortParamSettingPage> {
   void _openSerialPort(CueSerialPortModel cuePortModel) {
     developer.log("open the port = ${cuePortModel.value.name}");
     developer.log("open the port cuePortModel = $cuePortModel");
+    SnackBar snackBar = SnackBar(
+        content: Text(
+            "打开端口号为: ${cuePortModel.value.name}, 波特率为: ${cuePortModel.value.baudRate}"));
+    ScaffoldMessenger.of(context).showSnackBar(snackBar);
     List<SerialPort>? allPortList = PortUtils.getUsbAvailablePort();
     for (final port in allPortList!) {
       developer.log("port.name = ${port.name}");
@@ -349,7 +353,7 @@ class _PortParamSettingPage extends State<PortParamSettingPage> {
         SerialPortConfig portConfig = new SerialPortConfig();
         portConfig.baudRate = cuePortModel.value.baudRate;
         portConfig.bits = cuePortModel.value.dataBits;
-        portConfig.stopBits = 1;
+        portConfig.stopBits = int.parse(cuePortModel.value.stopBits);
         portConfig.cts;
         getSerialPortData(port, portConfig);
         break;

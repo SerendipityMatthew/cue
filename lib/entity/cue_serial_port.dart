@@ -28,10 +28,4 @@ class CueSerialPort {
     cuePort.stopBits = PortParamConstant.PORT_STOP_BIT_LIST.first;
     return cuePort;
   }
-
-  @override
-  String toString() {
-    // TODO: implement toString
-    return "projectName = $projectName, name = $name, alias = $alias, baudRate = $baudRate, flowType = $flowType, stopBits = $stopBits, dataBits = $dataBits, parity = $parity";
-  }
 }
