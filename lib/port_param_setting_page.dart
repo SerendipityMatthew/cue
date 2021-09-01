@@ -367,6 +367,8 @@ class _PortParamSettingPage extends State<PortParamSettingPage> {
     var isSuccess = serialPort.open(mode: SerialPortMode.readWrite);
     try {
       serialPort.config = serialPortConfig;
+      SnackBar snackBar = SnackBar(content: Text("打开端口号成功"));
+      ScaffoldMessenger.of(context).showSnackBar(snackBar);
     } on Exception {
       SnackBar snackBar = SnackBar(content: Text("打开端口号失败"));
       ScaffoldMessenger.of(context).showSnackBar(snackBar);
