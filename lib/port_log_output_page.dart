@@ -47,7 +47,7 @@ class _PortLogOutputPage extends State<PortLogOutputPage> {
         /// TODO 这个是表示始终拉到最底部显示的数据, 当鼠标滑动的时候, 这个应该停止
         _scrollController.animateTo(0.0,
             duration: Duration(microseconds: 300), curve: Curves.easeOut);
-        return Text(value.toString());
+        return SelectableText(value.toString());
       },
 
       ///监听的数据
