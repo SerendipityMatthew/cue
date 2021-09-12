@@ -1,3 +1,4 @@
+import 'package:cue/model/port_log_model.dart';
 import 'package:cue/most_used_command.dart';
 import 'package:cue/port_log_output_page.dart';
 import 'package:cue/port_param_setting_page.dart';
@@ -12,7 +13,8 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    ValueNotifier<String> _logValueNotifier = ValueNotifier<String>('');
+    ValueNotifier<PortLogModel> _logValueNotifier =
+        ValueNotifier<PortLogModel>(PortLogModel(DateTime.now(), "", ""));
     return MaterialApp(
       home: Scaffold(
         body: Row(
@@ -23,7 +25,7 @@ class HomePage extends StatelessWidget {
                   children: [
                     PortParamSettingPage(
                       portDataCallBack: (portLog) {
-                        _logValueNotifier.value += portLog!;
+                        _logValueNotifier.value = portLog!;
                       },
                     ),
                     SizedBox(

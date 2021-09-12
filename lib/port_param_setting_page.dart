@@ -4,6 +4,7 @@ import 'dart:developer' as developer;
 import 'package:cue/constants/port_param_constant.dart';
 import 'package:cue/entity/cue_serial_port.dart';
 import 'package:cue/model/cue_serial_port_model.dart';
+import 'package:cue/model/port_log_model.dart';
 import 'package:cue/utils/PortUtils.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -19,7 +20,7 @@ import 'colors/AppColors.dart';
 
 /// This is the stateful widget that the main application instantiates.
 class PortParamSettingPage extends StatefulWidget {
-  final ValueChanged<String?>? portDataCallBack;
+  final ValueChanged<PortLogModel?>? portDataCallBack;
 
   const PortParamSettingPage({Key? key, required this.portDataCallBack})
       : super(key: key);
@@ -387,8 +388,9 @@ class _PortParamSettingPage extends State<PortParamSettingPage> {
       var dataStr = utf8.decode(dataBytes, allowMalformed: true);
       DateTime currentDate = DateTime.now();
       var displayLog = "[$currentDate]$dataStr\n";
-      this.widget.portDataCallBack!(displayLog);
-      developer.log("${displayLog.trim()}");
+      PortLogModel portLogModel = PortLogModel(currentDate, "", dataStr);
+      this.widget.portDataCallBack!(portLogModel);
+      // developer.log("${displayLog.trim()}");
     });
   }
 }

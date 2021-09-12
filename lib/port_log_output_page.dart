@@ -3,8 +3,10 @@ import 'dart:developer' as developer;
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
+import 'model/port_log_model.dart';
+
 class PortLogOutputPage extends StatefulWidget {
-  final ValueNotifier<String> logValueNotifier;
+  final ValueNotifier<PortLogModel> logValueNotifier;
 
   const PortLogOutputPage({Key? key, required this.logValueNotifier})
       : super(key: key);
@@ -18,6 +20,57 @@ class PortLogOutputPage extends StatefulWidget {
 
 class _PortLogOutputPage extends State<PortLogOutputPage> {
   ScrollController _scrollController = new ScrollController();
+  List<Card> cardList = new List.generate(300, (int index) {
+    return Card(
+      color: Colors.blue[100],
+      child: Container(
+        width: 50.0,
+        height: 15.0,
+        child: SelectableText("", onSelectionChanged: (selection, cause) {
+          if (cause == SelectionChangedCause.tap) {
+            String selectedText = "Matthew"
+                .substring(selection.baseOffset, selection.extentOffset);
+            developer.log(
+                "selection = $selection, cause = $cause, selectedText = $selectedText");
+          }
+        }),
+      ),
+    );
+  });
+
+  @override
+  void initState() {
+    super.initState();
+    this.widget.logValueNotifier.addListener(() {
+      var outputLog = this.widget.logValueNotifier.value;
+      var outputLogLine =
+          "[${outputLog.timeStamp}][${outputLog.deviceClock}][${outputLog.deviceLog}";
+      var lineCount = "\n".allMatches(outputLog.deviceLog).length;
+      developer.log("initState: lineCount = $lineCount");
+      lineCount += 1;
+
+      setState(() {
+        cardList.add(Card(
+          color: Colors.blue[100],
+          child: Container(
+            width: 50.0,
+            height: lineCount * 20,
+            child: SelectableText(outputLogLine,
+                onSelectionChanged: (selection, cause) {
+              if (cause == SelectionChangedCause.tap) {
+                String selectedText = outputLogLine
+                    .toString()
+                    .substring(selection.baseOffset, selection.extentOffset);
+                developer.log(
+                    "selection = $selection, cause = $cause, selectedText = $selectedText");
+              }
+            }),
+          ),
+        ));
+      });
+      developer.log("this.widget.logValueNotifier.value = $outputLogLine");
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -30,70 +83,10 @@ class _PortLogOutputPage extends State<PortLogOutputPage> {
           child: ListView(
             controller: _scrollController,
             reverse: true,
-            children: [
-              buildValueListenableBuilder(),
-            ],
+            children: cardList,
           ),
         ),
       ],
-    );
-  }
-
-  ///第二步定义 数据变化后监听的 Widget
-  Widget buildValueListenableBuilder() {
-    return ValueListenableBuilder(
-      ///数据发生变化时回调
-      builder: (context, value, child) {
-        /// TODO 这个是表示始终拉到最底部显示的数据, 当鼠标滑动的时候, 这个应该停止
-        _scrollController.animateTo(0.0,
-            duration: Duration(microseconds: 300), curve: Curves.easeOut);
-        return SelectableText(
-          value.toString(),
-
-          /// selection 得到的是一个偏移量, 需要转换成相关的字符串,
-          /// 然而我们的字符串都是主追加到这个 text 里面的, 文本很大
-          /// TODO 解决文本过大的问题
-          onSelectionChanged: (selection, cause) {
-            developer.log("selection = $selection, cause = $cause");
-          },
-        );
-      },
-
-      ///监听的数据
-      valueListenable: this.widget.logValueNotifier,
-    );
-  }
-
-  /// TODO 时间戳显示为蓝色, 日志显示为灰白色
-  ///第二步定义 数据变化后监听的 Widget
-  Widget buildValueListenableBuilder1() {
-    return ValueListenableBuilder(
-      ///数据发生变化时回调
-      builder: (context, value, child) {
-        _scrollController.animateTo(0.0,
-            duration: Duration(microseconds: 300), curve: Curves.easeOut);
-        developer.log("dddddd value.toString() = ${value.toString()}");
-        if (value.toString() == "") {
-          value = "[xxxxxx]";
-        }
-
-        List<String> logLine = value.toString().split("]");
-        String timeStamp = logLine[0].replaceAll("[", "").toString();
-        String log = logLine[1].replaceAll("[", "").toString();
-        return Container(
-          height: 20,
-          width: 950,
-          child: Row(
-            children: [
-              Text(timeStamp, style: TextStyle(color: Colors.blue)),
-              Text(log)
-            ],
-          ),
-        );
-      },
-
-      ///监听的数据
-      valueListenable: this.widget.logValueNotifier,
     );
   }
 }
