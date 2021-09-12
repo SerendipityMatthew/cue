@@ -365,6 +365,7 @@ class _PortParamSettingPage extends State<PortParamSettingPage> {
       SerialPort serialPort, SerialPortConfig serialPortConfig) {
     serialPort.close();
     var isSuccess = serialPort.open(mode: SerialPortMode.readWrite);
+    developer.log("the baudrate is ${serialPortConfig.baudRate}");
     try {
       serialPort.config = serialPortConfig;
       SnackBar snackBar = SnackBar(content: Text("打开端口号成功"));
