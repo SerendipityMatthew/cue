@@ -350,7 +350,6 @@ class _PortParamSettingPage extends State<PortParamSettingPage> {
     for (final port in allPortList!) {
       developer.log("port.name = ${port.name}");
       if (port.name == cuePortModel.value.name) {
-        developer.log("port.name 111111 = ${port.name}");
         SerialPortConfig portConfig = new SerialPortConfig();
         portConfig.baudRate = cuePortModel.value.baudRate;
         portConfig.bits = cuePortModel.value.dataBits;
@@ -370,7 +369,8 @@ class _PortParamSettingPage extends State<PortParamSettingPage> {
       serialPort.config = serialPortConfig;
       SnackBar snackBar = SnackBar(content: Text("打开端口号成功"));
       ScaffoldMessenger.of(context).showSnackBar(snackBar);
-    } on Exception {
+    } catch (exception) {
+      developer.log("open port get exception: $exception");
       SnackBar snackBar = SnackBar(content: Text("打开端口号失败"));
       ScaffoldMessenger.of(context).showSnackBar(snackBar);
     }
@@ -389,7 +389,7 @@ class _PortParamSettingPage extends State<PortParamSettingPage> {
       DateTime currentDate = DateTime.now();
       var displayLog = "[$currentDate]$dataStr\n";
       PortLogModel portLogModel = PortLogModel(currentDate, "", dataStr);
-      developer.log("11111 ${displayLog.trim()}");
+      developer.log("get the log: ${displayLog.trim()}");
 
       this.widget.portDataCallBack!(portLogModel);
     });
