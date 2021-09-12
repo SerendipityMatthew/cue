@@ -381,7 +381,7 @@ class _PortParamSettingPage extends State<PortParamSettingPage> {
       return null;
     }
     developer.log(
-        "Serial Port of ${serialPort.name} the open status = ${serialPort.isOpen} ",
+        "getSerialPortData Serial Port of ${serialPort.name} the open status = ${serialPort.isOpen} ",
         name: "getSerialPortData");
     var reader = SerialPortReader(serialPort);
     reader.stream.listen((dataBytes) {
@@ -389,8 +389,9 @@ class _PortParamSettingPage extends State<PortParamSettingPage> {
       DateTime currentDate = DateTime.now();
       var displayLog = "[$currentDate]$dataStr\n";
       PortLogModel portLogModel = PortLogModel(currentDate, "", dataStr);
+      developer.log("11111 ${displayLog.trim()}");
+
       this.widget.portDataCallBack!(portLogModel);
-      // developer.log("${displayLog.trim()}");
     });
   }
 }

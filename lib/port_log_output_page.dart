@@ -20,56 +20,31 @@ class PortLogOutputPage extends StatefulWidget {
 
 class _PortLogOutputPage extends State<PortLogOutputPage> {
   ScrollController _scrollController = new ScrollController();
-  List<Card> cardList = new List.generate(300, (int index) {
-    return Card(
-      color: Colors.blue[100],
-      child: Container(
-        width: 50.0,
-        height: 15.0,
-        child: SelectableText("", onSelectionChanged: (selection, cause) {
-          if (cause == SelectionChangedCause.tap) {
-            String selectedText = "Matthew"
-                .substring(selection.baseOffset, selection.extentOffset);
-            developer.log(
-                "selection = $selection, cause = $cause, selectedText = $selectedText");
-          }
-        }),
-      ),
-    );
-  });
+  List<PortLogModel> portLogList = [];
 
   @override
   void initState() {
     super.initState();
+    developer.log("this.widget.logValueNotifier.value initState ");
+
     this.widget.logValueNotifier.addListener(() {
       var outputLog = this.widget.logValueNotifier.value;
       var outputLogLine =
           "[${outputLog.timeStamp}][${outputLog.deviceClock}][${outputLog.deviceLog}";
-      var lineCount = "\n".allMatches(outputLog.deviceLog).length;
-      developer.log("initState: lineCount = $lineCount");
-      lineCount += 1;
-
+      developer
+          .log("_PortLogOutputPage: initState: outputLogLine = $outputLogLine");
       setState(() {
-        cardList.add(Card(
-          color: Colors.blue[100],
-          child: Container(
-            width: 50.0,
-            height: lineCount * 20,
-            child: SelectableText(outputLogLine,
-                onSelectionChanged: (selection, cause) {
-              if (cause == SelectionChangedCause.tap) {
-                String selectedText = outputLogLine
-                    .toString()
-                    .substring(selection.baseOffset, selection.extentOffset);
-                developer.log(
-                    "selection = $selection, cause = $cause, selectedText = $selectedText");
-              }
-            }),
-          ),
-        ));
+        portLogList.add(this.widget.logValueNotifier.value);
       });
-      developer.log("this.widget.logValueNotifier.value = $outputLogLine");
+      _scrollController.animateTo(_scrollController.position.maxScrollExtent,
+          duration: Duration(milliseconds: 300), curve: Curves.easeOut);
     });
+  }
+
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    super.dispose();
   }
 
   @override
@@ -80,10 +55,29 @@ class _PortLogOutputPage extends State<PortLogOutputPage> {
           height: 400,
           width: 950,
           color: Colors.grey[300],
-          child: ListView(
+          child: ListView.builder(
+            shrinkWrap: true,
             controller: _scrollController,
-            reverse: true,
-            children: cardList,
+            itemCount: portLogList.length + 1,
+            itemBuilder: (context, index) {
+              if (index == portLogList.length) {
+                return Container(
+                  height: 70,
+                );
+              }
+              var outputLog = portLogList[index];
+              developer.log("messages[index].message: outputLog = $outputLog");
+              return Row(
+                children: [
+                  Text(
+                    "[${outputLog.timeStamp.toString()}]",
+                    style: TextStyle(color: Colors.blue),
+                  ),
+                  Text("[${outputLog.deviceClock}]"),
+                  Text("[${outputLog.deviceLog}]"),
+                ],
+              );
+            },
           ),
         ),
       ],

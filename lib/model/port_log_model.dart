@@ -10,4 +10,9 @@ class PortLogModel extends ChangeNotifier {
     this.deviceClock,
     this.deviceLog,
   );
+
+  @override
+  String toString() {
+    return 'PortLogModel{timeStamp: $timeStamp, deviceClock: $deviceClock, deviceLog: $deviceLog}';
+  }
 }
