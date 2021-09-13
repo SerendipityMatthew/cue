@@ -1,4 +1,5 @@
 import 'package:cue/constants/port_param_constant.dart';
+import 'package:flutter_libserialport/flutter_libserialport.dart';
 
 class CueSerialPort {
   /// 这个配置的项目的名称
@@ -17,6 +18,7 @@ class CueSerialPort {
   late String parity;
 
   late int dataBits;
+  late SerialPort serialPort;
 
   static CueSerialPort getDefaultConfigPort() {
     var cuePort = CueSerialPort();

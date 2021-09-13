@@ -1,5 +1,7 @@
 import 'dart:developer' as developer;
 
+import 'package:cue/entity/cue_serial_port.dart';
+import 'package:cue/model/cue_serial_port_model.dart';
 import 'package:cue/model/port_log_model.dart';
 import 'package:cue/most_used_command.dart';
 import 'package:cue/port_log_output_page.dart';
@@ -15,6 +17,7 @@ class HomePage extends StatelessWidget {
   List<PortLogModel> _portLogList = [];
   ValueNotifier<PortLogModel> _logValueNotifier =
       ValueNotifier<PortLogModel>(PortLogModel(DateTime.now(), "", ""));
+  CueSerialPortModel _cueSerialPortModel = CueSerialPortModel(CueSerialPort());
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -30,6 +33,7 @@ class HomePage extends StatelessWidget {
                         developer.log("eeeeeee $portLog");
                         _logValueNotifier.value = portLog!;
                       },
+                      currentSerialPortModel: _cueSerialPortModel,
                     ),
                     SizedBox(
                       width: 600,
@@ -45,7 +49,8 @@ class HomePage extends StatelessWidget {
                   height: 20,
                 ),
                 Container(
-                  child: InputCommandPage(),
+                  child:
+                      InputCommandPage(cueSerialPortModel: _cueSerialPortModel),
                 ),
               ],
             ),

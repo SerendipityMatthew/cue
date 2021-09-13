@@ -21,8 +21,12 @@ import 'colors/AppColors.dart';
 /// This is the stateful widget that the main application instantiates.
 class PortParamSettingPage extends StatefulWidget {
   final ValueChanged<PortLogModel?>? portDataCallBack;
+  final CueSerialPortModel currentSerialPortModel;
 
-  const PortParamSettingPage({Key? key, required this.portDataCallBack})
+  const PortParamSettingPage(
+      {Key? key,
+      required this.currentSerialPortModel,
+      required this.portDataCallBack})
       : super(key: key);
 
   @override
@@ -355,19 +359,21 @@ class _PortParamSettingPage extends State<PortParamSettingPage> {
         portConfig.bits = cuePortModel.value.dataBits;
         portConfig.stopBits = int.parse(cuePortModel.value.stopBits);
         portConfig.cts;
-        getSerialPortData(port, portConfig);
+        getSerialPortData(port, portConfig, cuePortModel.value);
         break;
       }
     }
   }
 
-  void getSerialPortData(
-      SerialPort serialPort, SerialPortConfig serialPortConfig) {
+  void getSerialPortData(SerialPort serialPort,
+      SerialPortConfig serialPortConfig, CueSerialPort cueSerialPort) {
     serialPort.close();
-    var isSuccess = serialPort.open(mode: SerialPortMode.readWrite);
+    var isSuccess = serialPort.open(mode: SerialPortMode.read);
     developer.log("the baudrate is ${serialPortConfig.baudRate}");
     try {
       serialPort.config = serialPortConfig;
+      cueSerialPort.serialPort = serialPort;
+      this.widget.currentSerialPortModel.value = cueSerialPort;
       SnackBar snackBar = SnackBar(content: Text("打开端口号成功"));
       ScaffoldMessenger.of(context).showSnackBar(snackBar);
     } catch (exception) {
