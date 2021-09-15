@@ -70,11 +70,9 @@ class _PortLogOutputPage extends State<PortLogOutputPage> {
               return Row(
                 children: [
                   Text(
-                    "[${outputLog.timeStamp.toString()}]",
-                    style: TextStyle(color: Colors.blue),
+                    "${outputLog.timeStamp.toString()}]${outputLog.deviceLog}",
+                    style: TextStyle(color: Colors.blue[(index % 10) * 100]),
                   ),
-                  Text("[${outputLog.deviceClock}]"),
-                  Text("[${outputLog.deviceLog}]"),
                 ],
               );
             },
