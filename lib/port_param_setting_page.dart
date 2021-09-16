@@ -353,12 +353,15 @@ class _PortParamSettingPage extends State<PortParamSettingPage> {
     List<SerialPort>? allPortList = PortUtils.getUsbAvailablePort();
     for (final port in allPortList!) {
       developer.log("port.name = ${port.name}");
+      developer.log("cuePortModel.value.name = ${cuePortModel.value.name}");
       if (port.name == cuePortModel.value.name) {
         SerialPortConfig portConfig = new SerialPortConfig();
         portConfig.baudRate = cuePortModel.value.baudRate;
         portConfig.bits = cuePortModel.value.dataBits;
         portConfig.stopBits = int.parse(cuePortModel.value.stopBits);
-        portConfig.cts;
+        PortParamConstant.sSerialPortModel = cuePortModel;
+        PortParamConstant.sSerialPortModel!.value.serialPort = port;
+
         getSerialPortData(port, portConfig, cuePortModel.value);
         break;
       }
@@ -373,6 +376,7 @@ class _PortParamSettingPage extends State<PortParamSettingPage> {
     try {
       serialPort.config = serialPortConfig;
       cueSerialPort.serialPort = serialPort;
+      PortParamConstant.sSerialPortModel!.value.serialPort = serialPort;
       this.widget.currentSerialPortModel.value = cueSerialPort;
       SnackBar snackBar = SnackBar(content: Text("打开端口号成功"));
       ScaffoldMessenger.of(context).showSnackBar(snackBar);

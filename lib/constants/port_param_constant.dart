@@ -1,3 +1,5 @@
+import 'package:cue/model/cue_serial_port_model.dart';
+
 class PortParamConstant {
   static const List<String> COMMON_BAUDRATE_LIST = [
     "9,600",
@@ -28,4 +30,6 @@ class PortParamConstant {
     'XOFF'
   ];
   static const List<String> PORT_STOP_BIT_LIST = ["1", "2"];
+
+  static CueSerialPortModel? sSerialPortModel;
 }

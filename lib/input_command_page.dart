@@ -1,8 +1,8 @@
 import 'dart:developer' as developer;
 
+import 'package:cue/constants/port_param_constant.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_libserialport/flutter_libserialport.dart';
 
 import 'model/cue_serial_port_model.dart';
 
@@ -45,20 +45,18 @@ class _InputCommandPage extends State<InputCommandPage> {
           onEditingComplete: () {
             developer.log(
                 "_InputCommandPage: build: onEditingComplete: inputText 2222 = $inputText");
-            var cuePortModel = this.widget.cueSerialPortModel;
-            var serialPort = cuePortModel.value.serialPort;
-            SerialPortConfig portConfig = new SerialPortConfig();
-            portConfig.baudRate = cuePortModel.value.baudRate;
-            portConfig.bits = cuePortModel.value.dataBits;
-            portConfig.stopBits = int.parse(cuePortModel.value.stopBits);
-            portConfig.cts;
-            var isSuccess = serialPort.isOpen;
-            serialPort.config = portConfig;
             developer.log(
-                "_InputCommandPage: build: onEditingComplete: inputText isSuccess = $isSuccess");
-            if (isSuccess) {
-              // serialPort.write(Uint8List.fromList(inputText.codeUnits));
-              // serialPort.flush(SerialPortBuffer.input);
+                "_InputCommandPage: build: onEditingComplete: inputText sSerialPortModel = ${PortParamConstant.sSerialPortModel}");
+            if (PortParamConstant.sSerialPortModel != null) {
+              var serialPort =
+                  PortParamConstant.sSerialPortModel!.value.serialPort;
+              var isSuccess = serialPort.isOpen;
+              developer.log(
+                  "_InputCommandPage: build: onEditingComplete: inputText isSuccess = $isSuccess");
+              if (isSuccess) {
+                // serialPort.write(Uint8List.fromList(inputText.codeUnits));
+                // serialPort.flush(SerialPortBuffer.input);
+              }
             }
           }),
     );
