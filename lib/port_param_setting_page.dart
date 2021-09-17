@@ -371,7 +371,7 @@ class _PortParamSettingPage extends State<PortParamSettingPage> {
   void getSerialPortData(SerialPort serialPort,
       SerialPortConfig serialPortConfig, CueSerialPort cueSerialPort) {
     serialPort.close();
-    var isSuccess = serialPort.open(mode: SerialPortMode.read);
+    var isSuccess = serialPort.open(mode: SerialPortMode.readWrite);
     developer.log("the baudrate is ${serialPortConfig.baudRate}");
     try {
       serialPort.config = serialPortConfig;

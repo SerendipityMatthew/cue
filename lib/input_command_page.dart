@@ -1,8 +1,10 @@
 import 'dart:developer' as developer;
+import 'dart:typed_data';
 
 import 'package:cue/constants/port_param_constant.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_libserialport/flutter_libserialport.dart';
 
 import 'model/cue_serial_port_model.dart';
 
@@ -54,8 +56,8 @@ class _InputCommandPage extends State<InputCommandPage> {
               developer.log(
                   "_InputCommandPage: build: onEditingComplete: inputText isSuccess = $isSuccess");
               if (isSuccess) {
-                // serialPort.write(Uint8List.fromList(inputText.codeUnits));
-                // serialPort.flush(SerialPortBuffer.input);
+                serialPort.write(Uint8List.fromList(inputText.codeUnits));
+                serialPort.flush(SerialPortBuffer.input);
               }
             }
           }),
